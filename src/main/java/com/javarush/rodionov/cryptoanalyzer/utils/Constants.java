@@ -1,8 +1,11 @@
-package com.javarush.rodionov.cryptoanalyzer.constants;
+package com.javarush.rodionov.cryptoanalyzer.utils;
 
 import java.io.File;
 
-public class Constants {
+public final class Constants {
+
+    private Constants() {}
+
     private static final String RU = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     private static final String EN = "abcdefghijklmnopqrstuvwxyz";
     private static final String CH = ".,:;-\" ";
