@@ -1,4 +1,4 @@
-package com.javarush.rodionov.cryptoanalyzer.exceptions;
+package com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions;
 
 public class AppException extends RuntimeException {
     public AppException() {

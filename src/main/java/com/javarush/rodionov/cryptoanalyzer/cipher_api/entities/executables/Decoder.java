@@ -1,9 +1,9 @@
-package com.javarush.rodionov.cryptoanalyzer.executables;
+package com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.executables;
 
-import com.javarush.rodionov.cryptoanalyzer.utils.CipherUtils;
-import com.javarush.rodionov.cryptoanalyzer.utils.Constants;
-import com.javarush.rodionov.cryptoanalyzer.entities.Result;
-import com.javarush.rodionov.cryptoanalyzer.exceptions.AppException;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.utils.CipherUtils;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.utils.Constants;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.Result;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions.AppException;
 import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
 import java.util.Map;
@@ -21,20 +21,9 @@ public class Decoder implements Executable {
     }
 
     @Override
-    public Result execute(String[] parameters) {
-        String src = parameters[0];
-        String dest = parameters[2];
-        int key;
-
-        try {
-            key = Integer.parseInt(parameters[1]);
-        } catch (NumberFormatException e) {
-            return new Result("Key must be an integer", false);
-        }
-
-
+    public Result execute(String src, int key, String dest) {
         String encodedContent = fileHandler.read(Constants.PATH + src);
-        if (encodedContent == null) return new Result("Source file is emmpty", false);
+        if (encodedContent == null) return new Result("Отсутствует содержимое файла", false);
 
         char[] symbols = Constants.SYMBOLS;
 
@@ -52,9 +41,9 @@ public class Decoder implements Executable {
 
         try {
             fileHandler.write(decodedContent, Constants.PATH + dest);
-            return new Result("Decoding completed successfully", true);
+            return new Result("Содержимое файла " + src + " успешно дешифровано. Результат сохранен в файл " + dest, true);
         } catch (AppException e) {
-            return new Result("Something went wrong", false);
+            return new Result("Ошибка приложения: " + e.getMessage(), false);
         }
     }
 }

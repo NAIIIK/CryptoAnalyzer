@@ -1,4 +1,4 @@
-package com.javarush.rodionov.cryptoanalyzer.entities;
+package com.javarush.rodionov.cryptoanalyzer.cipher_api.entities;
 
 public class Result {
 

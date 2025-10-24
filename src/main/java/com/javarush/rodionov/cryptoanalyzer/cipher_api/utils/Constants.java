@@ -1,4 +1,4 @@
-package com.javarush.rodionov.cryptoanalyzer.utils;
+package com.javarush.rodionov.cryptoanalyzer.cipher_api.utils;
 
 import java.io.File;
 

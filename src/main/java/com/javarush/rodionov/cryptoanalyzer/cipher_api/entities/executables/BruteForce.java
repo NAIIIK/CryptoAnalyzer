@@ -1,8 +1,8 @@
-package com.javarush.rodionov.cryptoanalyzer.executables;
+package com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.executables;
 
-import com.javarush.rodionov.cryptoanalyzer.utils.CipherUtils;
-import com.javarush.rodionov.cryptoanalyzer.utils.Constants;
-import com.javarush.rodionov.cryptoanalyzer.entities.Result;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.utils.CipherUtils;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.utils.Constants;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.Result;
 import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
 import java.util.Map;
@@ -20,8 +20,9 @@ public class BruteForce implements Executable {
     }
 
     @Override
-    public Result execute(String[] parameters) {
-        String encodedContent = fileHandler.read(Constants.PATH + parameters[0]);
+    public Result execute(String src, int key, String dest) {
+        String encodedContent = fileHandler.read(Constants.PATH + src);
+        if (encodedContent == null) return new Result("Отсутствует содержимое файла", false);
 
         char[] original = encodedContent.toCharArray();
         char[] symbols = Constants.SYMBOLS;
@@ -52,14 +53,14 @@ public class BruteForce implements Executable {
             }
         }
 
-        parameters[1] = String.valueOf(bestKey);
+        key = bestKey;
 
         Executable decoder = new Decoder();
 
-        Result result = decoder.execute(parameters);
+        Result result = decoder.execute(src, key, dest);
 
         if (result.isSuccess()) {
-            result.setMessage("Brute force decoding completed successfully, the key is " + bestKey);
+            result.setMessage("Взлом шифра успешно завершён. Ключ - " + bestKey + " либо " + (bestKey - symbols.length) + ". Содержимое файла дешифровано и сохранено в файл " + dest);
         }
 
         return result;
