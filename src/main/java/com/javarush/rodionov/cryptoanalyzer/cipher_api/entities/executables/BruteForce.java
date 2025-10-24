@@ -22,7 +22,7 @@ public class BruteForce implements Executable {
     @Override
     public Result execute(String src, int key, String dest) {
         String encodedContent = fileHandler.read(Constants.PATH + src);
-        if (encodedContent == null) return new Result("Отсутствует содержимое файла", false);
+        if (encodedContent == null || encodedContent.isEmpty()) return new Result("Отсутствует содержимое файла", false);
 
         char[] original = encodedContent.toCharArray();
         char[] symbols = Constants.SYMBOLS;

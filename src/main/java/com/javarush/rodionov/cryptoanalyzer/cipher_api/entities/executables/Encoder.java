@@ -23,7 +23,7 @@ public class Encoder implements Executable {
     @Override
     public Result execute(String src, int key, String dest) {
         String content = fileHandler.read(Constants.PATH + src);
-        if (content == null) return new Result("Отсутствует содержимое файла", false);
+        if (content == null || content.isEmpty()) return new Result("Отсутствует содержимое файла", false);
 
         char[] symbols = Constants.SYMBOLS;
 
