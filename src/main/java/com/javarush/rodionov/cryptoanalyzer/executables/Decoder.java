@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Decoder implements Executable {
 
-    private FileHandler fileHandler;
+    private final FileHandler fileHandler;
 
     public Decoder() {
         fileHandler = new FileHandler();
