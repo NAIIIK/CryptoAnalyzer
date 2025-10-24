@@ -1,5 +1,6 @@
 package com.javarush.rodionov.cryptoanalyzer.UI;
 
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions.AppException;
 import com.javarush.rodionov.cryptoanalyzer.presenter.Presenter;
 
 import java.util.Scanner;
@@ -46,20 +47,32 @@ public class ConsoleUI implements View{
         String src = inputSrcFileName();
         String dest = inputDestFileName();
         int key = inputKeyValue();
-        presenter.executeEncode(src, key, dest);
+        try {
+            presenter.executeEncode(src, key, dest);
+        } catch (AppException e) {
+            printMessage(e.getMessage() + "\n");
+        }
     }
 
     public void decode() {
         String src = inputSrcFileName();
         String dest = inputDestFileName();
         int key = inputKeyValue();
-        presenter.executeDecode(src, key, dest);
+        try {
+            presenter.executeDecode(src, key, dest);
+        } catch (AppException e) {
+            printMessage(e.getMessage() + "\n");
+        }
     }
 
     public void bruteForce() {
         String src = inputSrcFileName();
         String dest = inputDestFileName();
-        presenter.executeBruteForce(src, dest);
+        try {
+            presenter.executeBruteForce(src, dest);
+        } catch (AppException e) {
+            printMessage(e.getMessage() + "\n");
+        }
     }
 
     public void quit() {
