@@ -9,10 +9,19 @@ import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 import java.util.Map;
 
 public class Encoder implements Executable {
+
+    private final FileHandler fileHandler;
+
+    public Encoder() {
+        fileHandler = new FileHandler();
+    }
+
+    public Encoder(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+    }
+
     @Override
     public Result execute(String[] parameters) {
-        FileHandler fileHandler = new FileHandler();
-
         String src = parameters[0];
         String dest = parameters[2];
         int key;

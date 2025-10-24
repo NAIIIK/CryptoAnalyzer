@@ -8,6 +8,17 @@ import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 import java.util.Map;
 
 public class BruteForce implements Executable {
+
+    private final FileHandler fileHandler;
+
+    public BruteForce() {
+        fileHandler = new FileHandler();
+    }
+
+    public BruteForce(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+    }
+
     @Override
     public Result execute(String[] parameters) {
         FileHandler fileHandler = new FileHandler();
