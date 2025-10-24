@@ -6,7 +6,6 @@ import com.javarush.rodionov.cryptoanalyzer.entities.Result;
 import com.javarush.rodionov.cryptoanalyzer.exceptions.AppException;
 import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Decoder implements Executable {
