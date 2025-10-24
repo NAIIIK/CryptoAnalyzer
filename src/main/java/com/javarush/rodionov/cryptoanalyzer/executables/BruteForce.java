@@ -21,8 +21,6 @@ public class BruteForce implements Executable {
 
     @Override
     public Result execute(String[] parameters) {
-        FileHandler fileHandler = new FileHandler();
-
         String encodedContent = fileHandler.read(Constants.PATH + parameters[0]);
 
         char[] original = encodedContent.toCharArray();
