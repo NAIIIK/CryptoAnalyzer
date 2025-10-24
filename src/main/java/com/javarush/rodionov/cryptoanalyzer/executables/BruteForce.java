@@ -1,6 +1,7 @@
 package com.javarush.rodionov.cryptoanalyzer.executables;
 
-import com.javarush.rodionov.cryptoanalyzer.constants.Constants;
+import com.javarush.rodionov.cryptoanalyzer.utils.CipherUtils;
+import com.javarush.rodionov.cryptoanalyzer.utils.Constants;
 import com.javarush.rodionov.cryptoanalyzer.entities.Result;
 import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
@@ -15,22 +16,18 @@ public class BruteForce implements Executable {
         String encodedContent = fileHandler.read(Constants.PATH + parameters[0]);
 
         char[] original = encodedContent.toCharArray();
-        char[] alphabet = Constants.SYMBOLS;
+        char[] symbols = Constants.SYMBOLS;
 
-        Map<Character, Integer> indexOfChar = new HashMap<>();
-
-        for (int i = 0; i < alphabet.length; i++) {
-            indexOfChar.put(alphabet[i], i);
-        }
+        Map<Character, Integer> indexOfChar = CipherUtils.buildSymbolMap(symbols);
 
         int bestKey = 0;
         int bestScore = 0;
 
-        for (int shift = 0; shift <= alphabet.length; shift++) {
+        for (int shift = 0; shift <= symbols.length; shift++) {
 
-            char[] map = new char[alphabet.length];
-            for (int j = 0; j < alphabet.length; j++) {
-                map[j] = alphabet[j - shift < 0 ? j - shift + alphabet.length : j - shift];
+            char[] map = new char[symbols.length];
+            for (int j = 0; j < symbols.length; j++) {
+                map[j] = symbols[j - shift < 0 ? j - shift + symbols.length : j - shift];
             }
 
             char[] decoded = new char[original.length];

@@ -1,10 +1,12 @@
 package com.javarush.rodionov.cryptoanalyzer.executables;
 
-import com.javarush.rodionov.cryptoanalyzer.constants.Constants;
+import com.javarush.rodionov.cryptoanalyzer.utils.CipherUtils;
+import com.javarush.rodionov.cryptoanalyzer.utils.Constants;
 import com.javarush.rodionov.cryptoanalyzer.entities.Result;
 import com.javarush.rodionov.cryptoanalyzer.exceptions.AppException;
 import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
+import javax.management.relation.RelationServiceNotRegisteredException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,35 +16,29 @@ public class Encoder implements Executable {
         FileHandler fileHandler = new FileHandler();
 
         String src = parameters[0];
-        int key = Integer.parseInt(parameters[1]);
         String dest = parameters[2];
+        int key;
+
+        try {
+            key = Integer.parseInt(parameters[1]);
+        } catch (NumberFormatException e) {
+            return new Result("Key must be an integer", false);
+        }
 
         String content = fileHandler.read(Constants.PATH + src);
-
         if (content == null) return new Result("Source file is empty", false);
 
         char[] symbols = Constants.SYMBOLS;
-        int len = symbols.length;
 
-        int shift = ((key % len) + len) % len;
+        Map<Character, Integer> indexMap = CipherUtils.buildSymbolMap(symbols);
+        key = CipherUtils.normalizeKey(key, symbols.length);
 
-        Map<Character, Integer> indexMap = new HashMap<>();
-
-        for (int i = 0; i < len; i++) {
-            indexMap.put(symbols[i], i);
+        char[] contentChars = content.toLowerCase().toCharArray();
+        for (int i = 0; i < contentChars.length; i++) {
+            contentChars[i] = CipherUtils.getShiftChar(contentChars[i], key, symbols, indexMap);
         }
 
-        StringBuilder stringBuilder = new StringBuilder(content.length());
-        for (char c : content.toLowerCase().toCharArray()) {
-            Integer pos = indexMap.get(c);
-            if (pos == null) stringBuilder.append(c);
-            else {
-                char encoded = symbols[(pos + shift) % len];
-                stringBuilder.append(encoded);
-            }
-        }
-
-        String encodedContent = stringBuilder.toString();
+        String encodedContent = new String(contentChars);
 
         try {
             fileHandler.write(encodedContent, Constants.PATH + dest);
