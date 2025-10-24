@@ -1,7 +1,7 @@
 package com.javarush.rodionov.cryptoanalyzer.file_handler;
 
-import com.javarush.rodionov.cryptoanalyzer.exceptions.FileReadException;
-import com.javarush.rodionov.cryptoanalyzer.exceptions.FileWriteException;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions.FileReadException;
+import com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions.FileWriteException;
 
 import java.io.*;
 
