@@ -3,8 +3,8 @@ package com.javarush.rodionov.cryptoanalyzer.UI.Commands;
 import com.javarush.rodionov.cryptoanalyzer.UI.ConsoleUI;
 
 public abstract class Command {
-    private String description;
-    private ConsoleUI consoleUI;
+    private final String description;
+    private final ConsoleUI consoleUI;
 
     public Command(String description, ConsoleUI consoleUI) {
         this.description = description;

@@ -5,8 +5,8 @@ import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.Result;
 import com.javarush.rodionov.cryptoanalyzer.cipher_api.service.Service;
 
 public class Presenter {
-    private View view;
-    private Service service;
+    private final View view;
+    private final Service service;
 
     public Presenter(View view) {
         this.view = view;
