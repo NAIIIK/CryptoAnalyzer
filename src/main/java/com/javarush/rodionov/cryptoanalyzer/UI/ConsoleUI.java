@@ -5,7 +5,23 @@ import com.javarush.rodionov.cryptoanalyzer.presenter.Presenter;
 
 import java.util.Scanner;
 
-public class ConsoleUI implements View{
+/**
+ * Компонент пользовательского интерфейса, реализующий взаимодействие
+ * с пользователем через консоль.
+ *
+ * <p>Класс выступает реализацией интерфейса {@link View} и обеспечивает:
+ * <ul>
+ *     <li>Отображение текстового меню</li>
+ *     <li>Обработку пользовательского ввода</li>
+ *     <li>Делегирование операций классу {@link Presenter}</li>
+ *     <li>Вывод сообщений и ошибок</li>
+ * </ul>
+ *
+ * Используется паттерн MVP, где ConsoleUI представляет слой View
+ * и не содержит бизнес-логики шифрования.
+ */
+public class ConsoleUI implements View {
+
     private final Presenter presenter;
     private final Scanner scanner;
     private boolean action;

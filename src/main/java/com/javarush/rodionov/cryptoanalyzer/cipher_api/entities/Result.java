@@ -1,5 +1,10 @@
 package com.javarush.rodionov.cryptoanalyzer.cipher_api.entities;
 
+/**
+ * Класс Result инкапсулирует результат выполнения операции:
+ * сообщение и признак успешности. Используется реализациями
+ * интерфейса Executable для унифицированного возврата результата.
+ */
 public class Result {
 
     private String message;

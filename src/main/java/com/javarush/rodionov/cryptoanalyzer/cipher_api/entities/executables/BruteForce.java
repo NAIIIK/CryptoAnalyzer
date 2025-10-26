@@ -7,6 +7,26 @@ import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
 import java.util.Map;
 
+/**
+ * BruteForce — реализация атаки полного перебора для сдвигового (Caesar-like) шифра.
+ *
+ * <p>
+ *      Класс читает зашифрованный файл, пробует все возможные сдвиги по набору символов
+ * {@link Constants#SYMBOLS} и выбирает лучший сдвиг по эвристической функции,
+ * подсчитывающей число вхождений последовательности {@code ", "}. Затем вызывает
+ * {@link Decoder} для фактического декодирования с найденным ключом и сохраняет результат.
+ *
+ *
+ * <p>
+ * Зависимости:
+ *  <ul>
+ *   <li>{@link FileHandler} — чтение файлов;</li>
+ *   <li>{@link CipherUtils#buildSymbolMap(char[])} — карта символов → индекс;</li>
+ *   <li>{@link Constants#SYMBOLS} — алфавит/таблица символов;</li>
+ *   <li>{@link Decoder} — декодер, реализующий интерфейс {@code Executable}.</li>
+ *  </ul>
+ *
+ */
 public class BruteForce implements Executable {
 
     private final FileHandler fileHandler;
@@ -19,6 +39,25 @@ public class BruteForce implements Executable {
         this.fileHandler = fileHandler;
     }
 
+    /**
+     * Выполняет атаку полного перебора и возвращает результат декодирования.
+     *
+     * <p>
+     *     Алгоритм:
+     * <ol>
+     *   <li>Чтение содержимого исходного файла (путь: {@code Constants.PATH + src}).</li>
+     *   <li>Перебор всех сдвигов в диапазоне {@code 0..Constants.SYMBOLS.length}.</li>
+     *   <li>Для каждого сдвига построение таблицы подстановки и декодирование текста.</li>
+     *   <li>Оценка декодированного текста функцией {@link #scoreByCommaSpace(char[])}.</li>
+     *   <li>Выбор сдвига с максимальным значением оценки и декодирование через {@link Decoder}.</li>
+     * </ol>
+     *
+     *
+     * @param src  имя исходного зашифрованного файла (без префикса {@code Constants.PATH})
+     * @param key  первоначальное значение ключа (игнорируется; метод подставляет найденный ключ)
+     * @param dest имя файла для записи расшифрованного текста
+     * @return {@link Result} — результат операции; содержит сообщение и флаг успеха.
+     */
     @Override
     public Result execute(String src, int key, String dest) {
         String encodedContent = fileHandler.read(Constants.PATH + src);

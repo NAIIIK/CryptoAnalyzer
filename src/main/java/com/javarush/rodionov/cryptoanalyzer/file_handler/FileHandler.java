@@ -5,6 +5,25 @@ import com.javarush.rodionov.cryptoanalyzer.cipher_api.exceptions.FileWriteExcep
 
 import java.io.*;
 
+/**
+ * Утилитарный класс для простого чтения и записи текстовых файлов.
+ *
+ * <p>Реализация использует {@link BufferedReader}/{@link BufferedWriter} поверх
+ * {@link FileReader}/{@link FileWriter} и оператор try-with-resources для безопасного
+ * закрытия потоков. Методы ориентированы на работу с текстовыми файлами и
+ * возвращают/принимают содержимое целиком.</p>
+ *
+ * <p>Особенности реализации:
+ * <ul>
+ *   <li>Метод {@link #read(String)} возвращает содержимое файла как одну строку,
+ *       причём к каждой прочитанной строке добавляется {@link System#lineSeparator()},
+ *       включая последнюю — это может привести к завершающему символу новой строки
+ *       в возвращаемой строке.</li>
+ *   <li>Метод {@link #write(String, String)} перезаписывает целевой файл
+ *       (аналогично поведению {@link FileWriter} без флага дозаписи).</li>
+ * </ul>
+ *
+ */
 public class FileHandler {
 
     public String read(String fileName) {

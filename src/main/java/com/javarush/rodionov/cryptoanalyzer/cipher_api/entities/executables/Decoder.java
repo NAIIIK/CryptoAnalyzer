@@ -8,6 +8,19 @@ import com.javarush.rodionov.cryptoanalyzer.file_handler.FileHandler;
 
 import java.util.Map;
 
+/**
+ * Decoder — реализация дешифратора для сдвигового шифра (Caesar-like).
+ *
+ * <p>Класс читает содержимое файла, применяет обратный сдвиг по заданному ключу
+ * и сохраняет расшифрованный текст в указанный файл.
+ *
+ * <p>Особенности:
+ * <ul>
+ *   <li>Ключ инвертируется и нормализуется: {@code key = normalizeKey(-key, symbols.length)}.</li>
+ *   <li>Входной текст приводится к нижнему регистру перед обработкой.</li>
+ * </ul>
+ *
+ */
 public class Decoder implements Executable {
 
     private final FileHandler fileHandler;
@@ -20,6 +33,14 @@ public class Decoder implements Executable {
         this.fileHandler = fileHandler;
     }
 
+    /**
+     * Выполняет дешифрование содержимого файла src с ключом key и сохраняет результат в dest.
+     *
+     * @param src  имя исходного файла (без префикса {@code Constants.PATH})
+     * @param key  целочисленный ключ сдвига (нормализуется внутри метода)
+     * @param dest имя выходного файла (без префикса {@code Constants.PATH})
+     * @return {@link Result} с сообщением и флагом успешности
+     */
     @Override
     public Result execute(String src, int key, String dest) {
         String encodedContent = fileHandler.read(Constants.PATH + src);

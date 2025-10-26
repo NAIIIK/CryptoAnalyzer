@@ -5,6 +5,12 @@ import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.executables.Brut
 import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.executables.Decoder;
 import com.javarush.rodionov.cryptoanalyzer.cipher_api.entities.executables.Encoder;
 
+/**
+ * Service — фасад для вызова операций шифрования/дешифрования/взлома.
+ *
+ * <p>Класс агрегирует реализации {@link Encoder}, {@link Decoder} и {@link BruteForce}
+ * и предоставляет удобные методы для их вызова.</p>
+ */
 public class Service {
     private final Encoder encoder;
     private final Decoder decoder;

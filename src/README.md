@@ -1,3 +1,3 @@
-# Cryptoanalyzer project
+# Проект криптоанализатор
 
-## Caesar cipher
+## Шифр Цезаря
