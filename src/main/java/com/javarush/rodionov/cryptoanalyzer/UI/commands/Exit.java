@@ -1,4 +1,4 @@
-package com.javarush.rodionov.cryptoanalyzer.UI.Commands;
+package com.javarush.rodionov.cryptoanalyzer.UI.commands;
 
 import com.javarush.rodionov.cryptoanalyzer.UI.ConsoleUI;
 

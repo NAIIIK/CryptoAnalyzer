@@ -1,6 +1,6 @@
 package com.javarush.rodionov.cryptoanalyzer.UI;
 
-import com.javarush.rodionov.cryptoanalyzer.UI.Commands.*;
+import com.javarush.rodionov.cryptoanalyzer.UI.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
